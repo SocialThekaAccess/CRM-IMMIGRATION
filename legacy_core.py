@@ -139,7 +139,7 @@ def inject_report_brand():
     except Exception:
         code=""
     if code not in ("SCIC","WWIC"):
-        if u and u["role"]!="MD" and u.get("company_code") in ("SCIC","WWIC"):
+        if u and u["role"]!="MD" and u["company_code"] in ("SCIC","WWIC"):
             code=u["company_code"]
         else:
             code="BOTH"
@@ -2205,7 +2205,7 @@ def competition_live_api():
     latest_id=con.execute("SELECT COALESCE(MAX(id),0) m FROM competition_events").fetchone()["m"]
     show_payment=(u["role"]=="MD")
     # SECURITY: Company isolation — but GM sees BOTH companies in competition tab
-    user_company=u.get("company_code","")
+    user_company=u["company_code"] or ""
     # GM can see both companies in competition (it's a cross-company competition view)
     is_wwic_only=False
     is_scic_only=False
