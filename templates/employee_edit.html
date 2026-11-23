@@ -75,8 +75,8 @@
   {% if u['role']=='MD' %}
   <div><label>Company</label>
     <select name="company_code">
-      <option value="SCIC" {% if row['company_code']=='SCIC' %}selected{% endif %}>ABC</option>
-      <option value="WWIC" {% if row['company_code']=='WWIC' %}selected{% endif %}>XYZ</option>
+      <option value="ABC_CODE" {% if row['company_code']=='ABC_CODE' %}selected{% endif %}>ABC</option>
+      <option value="XYZ_CODE" {% if row['company_code']=='XYZ_CODE' %}selected{% endif %}>XYZ</option>
     </select>
   </div>
   {% endif %}

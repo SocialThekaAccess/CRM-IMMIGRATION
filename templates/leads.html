@@ -1,8 +1,8 @@
-{% extends "base.html" %}{% block content %}
+﻿{% extends "base.html" %}{% block content %}
 <h1 class="title">Lead Upload & AM Allocation</h1>
 <div class="card"><h2>Upload Excel Leads</h2><form method="post" enctype="multipart/form-data"><div class="grid">
 <div><label>Excel File (.xls / .xlsx)</label><input type="file" name="excel_file" accept=".xls,.xlsx" required></div>
-{% if u['role']=='MD' %}<div><label>Company</label><select name="company_code"><option>SCIC</option><option>WWIC</option></select></div>{% endif %}
+{% if u['role']=='MD' %}<div><label>Company</label><select name="company_code"><option>ABC</option><option>XYZ</option></select></div>{% endif %}
 </div><br><button class="btn">Import Excel</button></form><p>Duplicates are never deleted: same-company = yellow, cross-company = red.</p></div>
 <div class="card"><h2>Allocate Unassigned Leads</h2><form method="post" action="{{url_for('allocate')}}"><div class="grid">
 <div><label>Assistant Manager</label><select name="am_id" required>

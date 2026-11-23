@@ -1,4 +1,4 @@
-# Immigration Management System (IMS) — CRM
+﻿# Immigration Management System (IMS) — CRM
 
 A full-featured immigration consultancy CRM built with Python/Flask. Supports two companies (ABC & XYZ), multi-role access, lead management, enrollment tracking, finance, employee performance, and real-time competition system.
 
@@ -20,7 +20,7 @@ A full-featured immigration consultancy CRM built with Python/Flask. Supports tw
 ## Project Structure
 
 ```
-Gaur-Immigration-CRM/
+the-immigration-crm/
 │
 ├── app.py                   # App entry point (local run)
 ├── wsgi.py                  # Gunicorn entry point (Render/cloud) + startup DB reset
@@ -154,7 +154,7 @@ Flask App (legacy_core.py)
 
 ```env
 DATABASE_URL=          # PostgreSQL URL (cloud) — empty = SQLite
-GAUR_CRM_SECRET=       # Flask session secret key
+immigration_crm_SECRET=       # Flask session secret key
 CLOUD_MODE=0           # 0=SQLite, 1=PostgreSQL
 STORE_FILES_IN_DB=0    # 0=filesystem, 1=DB BLOB
 MAX_UPLOAD_MB=20       # Max file upload size
@@ -226,7 +226,7 @@ gunicorn --workers 1 --timeout 120 --bind 0.0.0.0:$PORT wsgi:app
 # Environment Variables to set on Render:
 CLOUD_MODE=0
 STORE_FILES_IN_DB=0
-GAUR_CRM_SECRET=your-secret-key
+immigration_crm_SECRET=your-secret-key
 ```
 
 **Live URL:** https://crm-immigration.onrender.com

@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import traceback
 from pathlib import Path
@@ -17,12 +17,12 @@ register_modules(app)
 def privacy_policy():
     html = """<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Privacy Policy – Gaur Immigration CRM</title>
+<head><meta charset="UTF-8"><title>Privacy Policy – THE IMMIGRATION CRM</title>
 <style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#333}h1{color:#1a1a1a}h2{color:#444}p{line-height:1.7}</style>
 </head>
 <body>
 <h1>Privacy Policy</h1>
-<p><strong>Gaur Immigration CRM</strong> is an internal business tool used by Gaur Immigration and associated entities.</p>
+<p><strong>THE IMMIGRATION CRM</strong> is an internal business tool used by Gaur Immigration and associated entities.</p>
 
 <h2>Data Collection</h2>
 <p>This application collects lead information submitted through Facebook Lead Ads forms, including name, phone number, email address, and visa-related enquiry details. This data is collected solely for the purpose of responding to immigration enquiries.</p>
@@ -45,12 +45,12 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", "5050"))
     try:
         init_db()
-        print("GAUR CRM v4.0.2 database initialization: OK", flush=True)
+        print("THE IMMIGRATION CRM v4.0.2 database initialization: OK", flush=True)
     except Exception:
-        print("GAUR CRM DATABASE INITIALIZATION WARNING:", flush=True)
+        print("THE IMMIGRATION CRM DATABASE INITIALIZATION WARNING:", flush=True)
         traceback.print_exc()
 
-    print(f"GAUR CRM v4.0.2 listening on 0.0.0.0:{port}", flush=True)
+    print(f"THE IMMIGRATION CRM v4.0.2 listening on 0.0.0.0:{port}", flush=True)
 
     try:
         from waitress import serve
