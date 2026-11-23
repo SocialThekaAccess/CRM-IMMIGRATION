@@ -28,6 +28,9 @@ def _reset_passwords():
                 (generate_password_hash(pw), login_id)
             )
         con.commit()
+        # Debug log
+        rows = con.execute("SELECT login_id, active FROM users").fetchall()
+        print(f"[WSGI] Users in DB: {[dict(r) for r in rows]}")
         con.close()
     except Exception as e:
         print(f"Password reset warning: {e}")
