@@ -17,10 +17,12 @@ def _reset_passwords():
         con = db()
         resets = [
             ("md.admin",       "Admin@2026"),
+            ("ms.sandeep",     "Admin@2026"),
             ("gm.smartchoice", "ABC@GM2026#"),
             ("gm.whitewave",   "XYZ@GM2026#"),
             ("reception.scic", "Welcome@123"),
             ("reception.wwic", "Welcome@123"),
+            ("manjul.nagar",   "Admin@2026"),
         ]
         for login_id, pw in resets:
             con.execute(
