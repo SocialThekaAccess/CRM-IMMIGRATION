@@ -42,9 +42,19 @@ def _reset_passwords():
                     (new_login_id, generate_password_hash(pw), name, user["id"])
                 )
 
-        # Companies rename karo
+        # Companies rename karo aur logos remove karo
         con.execute("UPDATE companies SET name=? WHERE code=?", ("ABC Immigration Consultants", "SCIC"))
         con.execute("UPDATE companies SET name=? WHERE code=?", ("XYZ Immigration Consultants", "WWIC"))
+
+        # Kisi bhi table mein logo/photo data clear karo
+        try:
+            con.execute("UPDATE companies SET logo_data=NULL, logo_mime='' WHERE 1=1")
+        except Exception:
+            pass
+        try:
+            con.execute("UPDATE users SET photo_data=NULL, photo_mime='' WHERE 1=1")
+        except Exception:
+            pass
 
         # Extra MD users delete karo
         md_users = con.execute("SELECT id FROM users WHERE role='MD' ORDER BY id").fetchall()
