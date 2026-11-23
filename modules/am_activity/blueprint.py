@@ -1,4 +1,4 @@
-"""
+﻿"""
 AM Activity Report — MD Portal
 """
 import datetime
@@ -48,8 +48,8 @@ _TMPL = r"""{% extends "base.html" %}{% block content %}
   {% if u.role=='MD' %}
   <select name="company" style="background:#071d32;border:1px solid #1e4060;color:#fff;padding:7px 12px;border-radius:8px;font-size:13px">
     <option value="">Both Companies</option>
-    <option value="SCIC" {{'selected' if company=='SCIC' else ''}}>SCIC – Smart Choice</option>
-    <option value="WWIC" {{'selected' if company=='WWIC' else ''}}>WWIC – White Wave</option>
+    <option value="SCIC" {{'selected' if company=='SCIC' else ''}}>SCIC – ABC</option>
+    <option value="WWIC" {{'selected' if company=='WWIC' else ''}}>WWIC – XYZ</option>
   </select>
   {% endif %}
   <select name="am_id" style="background:#071d32;border:1px solid #1e4060;color:#fff;padding:7px 12px;border-radius:8px;font-size:13px">

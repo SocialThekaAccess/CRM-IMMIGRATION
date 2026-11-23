@@ -1,4 +1,4 @@
-"""
+﻿"""
 Facebook Lead Ads → Gaur CRM Integration
 -----------------------------------------
 Routes:
@@ -650,9 +650,9 @@ def auto_import_forms():
 
             # Company auto-assign based on page name
             name_lower = page_name.lower()
-            if "smart choice" in name_lower or "scic" in name_lower:
+            if "ABC" in name_lower or "scic" in name_lower:
                 company = "SCIC"
-            elif "white wave" in name_lower or "wwic" in name_lower:
+            elif "XYZ" in name_lower or "wwic" in name_lower:
                 company = "WWIC"
             else:
                 company = "WWIC"  # default

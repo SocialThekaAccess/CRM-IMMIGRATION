@@ -1,0 +1,22 @@
+{
+  "files.associations": {
+    "*.html": "jinja-html"
+  },
+  "html.validate.scripts": false,
+  "html.validate.styles": false,
+  "css.validate": false,
+  "emmet.includeLanguages": {
+    "jinja-html": "html"
+  },
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "[jinja-html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "html.customData": [],
+  "css.lint.unknownAtRules": "ignore",
+  "editor.formatOnSave": false
+}

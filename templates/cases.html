@@ -1,9 +1,9 @@
-{% extends "base.html" %}{% block content %}
+﻿{% extends "base.html" %}{% block content %}
 <h1 class="title">Enrollment • Payment • Filing</h1>
 <div class="card"><h2>Create Client Case</h2><form method="post"><div class="grid3">
 <div><label>Client Name *</label><input name="client_name" required></div><div><label>Mobile</label><input name="mobile"></div><div><label>Enrollment Date</label><input type="date" name="enrollment_date"></div>
 <div><label>Country</label><input name="country"></div><div><label>Visa Type</label><select name="visa_type"><option>Tourist Visa</option><option>Study Visa</option><option>Visitor Visa</option><option>Work Visa</option><option>Business Visa</option><option>Other</option></select></div>
-{% if u['role']=='MD' %}<div><label>Company</label><select name="company_code"><option value="SCIC">Smart Choice</option><option value="WWIC">White Wave</option></select></div>{% endif %}
+{% if u['role']=='MD' %}<div><label>Company</label><select name="company_code"><option value="SCIC">ABC</option><option value="WWIC">XYZ</option></select></div>{% endif %}
 <div><label>Booking Amount</label><input type="number" step="0.01" name="booking_amount" value="0"></div><div><label>Second Payment</label><input type="number" step="0.01" name="second_payment" value="0"></div><div><label>Payment Status</label><select name="payment_status"><option>Pending</option><option>Part Paid</option><option>Paid</option><option>Refunded</option></select></div>
 <div><label>Filing Status</label><select name="filing_status"><option>Documents Pending</option><option>Checklist Shared</option><option>Documents Complete</option><option>Ready to Lodge</option><option>Embassy Lodged</option><option>Decision Pending</option><option>Visa Approved</option><option>Visa Refused</option></select></div>
 <div><label>Assigned Employee</label><select name="assigned_employee_id"><option value="">Unassigned</option>{% for e in staff %}<option value="{{e['id']}}">{{e['company_code']}} - {{e['full_name']}}</option>{% endfor %}</select></div></div><label>Remarks</label><textarea name="remarks"></textarea><br><button class="btn">Create Client Case</button></form></div>

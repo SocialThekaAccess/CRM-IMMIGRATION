@@ -7,3 +7,5 @@ mini_crm.db
 mini_crm.db-*
 uploads/
 server_output.log
+export_db.py
+*.dump

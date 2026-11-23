@@ -1,4 +1,4 @@
-import os, hmac, hashlib, secrets, smtplib, ssl, datetime
+﻿import os, hmac, hashlib, secrets, smtplib, ssl, datetime
 from email.message import EmailMessage
 from werkzeug.security import generate_password_hash
 from legacy_core import db, IS_POSTGRES
@@ -73,10 +73,10 @@ def send_am_creation_otp(new_user, plain_password, creator):
         raise RuntimeError("Gmail OTP sender is not configured in Railway Variables.")
     otp = f"{secrets.randbelow(1000000):06d}"
     msg = EmailMessage()
-    msg["Subject"] = f"THE GAUR • New AM Created • {new_user['full_name']} • OTP Confirmation"
+    msg["Subject"] = f"IMS • New AM Created • {new_user['full_name']} • OTP Confirmation"
     msg["From"] = sender
     msg["To"] = sender
-    msg.set_content(f"""THE GAUR — NEW AM PORTAL CREATED
+    msg.set_content(f"""IMS — NEW AM PORTAL CREATED
 
 A new Assistant Manager portal has been created by {creator['full_name']} ({creator['role']}).
 
@@ -84,7 +84,7 @@ A new Assistant Manager portal has been created by {creator['full_name']} ({crea
 NEW AM LOGIN CREDENTIALS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Employee Name  : {new_user['full_name']}
-Company        : {new_user['company_code'] or 'THE GAUR'}
+Company        : {new_user['company_code'] or 'THE IMMIGRATION MANAGEMENT SYSTEM'}
 Login ID       : {new_user['login_id']}
 Password       : {plain_password}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -94,7 +94,7 @@ MD CONFIRMATION OTP : {otp}
 This OTP is for your records only. It confirms that this AM was
 created under your authority. Expires in 10 minutes.
 
-THE GAUR • Security Center
+IMS • Security Center
 """)
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context, timeout=20) as smtp:
@@ -108,10 +108,10 @@ def send_am_delete_otp(am_user, otp, actor):
     if not sender or not password:
         raise RuntimeError("Gmail OTP sender is not configured.")
     msg = EmailMessage()
-    msg["Subject"] = f"THE GAUR • AM Delete Confirmation OTP • {am_user['full_name']}"
+    msg["Subject"] = f"IMS • AM Delete Confirmation OTP • {am_user['full_name']}"
     msg["From"] = sender
     msg["To"] = sender
-    msg.set_content(f"""THE GAUR — AM DELETION REQUEST
+    msg.set_content(f"""IMS — AM DELETION REQUEST
 
 {actor['full_name']} ({actor['role']}) ne neeche diye AM ko delete karne ki request ki hai:
 
@@ -120,7 +120,7 @@ AM DETAILS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Name     : {am_user['full_name']}
 Login ID : {am_user['login_id']}
-Company  : {am_user['company_code'] or 'THE GAUR'}
+Company  : {am_user['company_code'] or 'THE IMMIGRATION MANAGEMENT SYSTEM'}
 Status   : Inactive
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -129,7 +129,7 @@ DELETION CONFIRMATION OTP : {otp}
 Yeh OTP sirf 10 minute ke liye valid hai.
 Agar aap yeh deletion approve karte hain toh OTP portal mein enter karein.
 
-THE GAUR • Security Center
+IMS • Security Center
 """)
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context, timeout=20) as smtp:
@@ -142,15 +142,15 @@ def send_admin_otp(user,otp):
     if not sender or not password:
         raise RuntimeError("Gmail OTP sender is not configured in Railway Variables.")
     msg=EmailMessage()
-    msg["Subject"]=f"THE GAUR • Password Reset OTP • {user['full_name']}"
+    msg["Subject"]=f"IMS • Password Reset OTP • {user['full_name']}"
     msg["From"]=sender; msg["To"]=sender
-    msg.set_content(f"""THE GAUR SECURITY ALERT
+    msg.set_content(f"""IMS SECURITY ALERT
 
 Password reset requested.
 
 Employee: {user['full_name']}
 Role: {user['role']}
-Company: {user['company_code'] or 'THE GAUR'}
+Company: {user['company_code'] or 'THE IMMIGRATION MANAGEMENT SYSTEM'}
 Login ID: {user['login_id']}
 
 ONE TIME PASSWORD: {otp}
@@ -158,7 +158,7 @@ ONE TIME PASSWORD: {otp}
 OTP expires in 10 minutes and can be used only once.
 Do not share it unless you approve this employee password reset.
 
-THE GAUR • Security Center
+IMS • Security Center
 """)
     context=ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context, timeout=20) as smtp:

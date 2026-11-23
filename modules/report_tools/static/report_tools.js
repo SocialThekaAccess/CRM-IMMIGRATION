@@ -1,16 +1,16 @@
-(function(){
+﻿(function(){
 "use strict";
 
 function clean(s){return String(s||"").replace(/\s+/g," ").trim();}
 function title(){
   const el=document.querySelector("h1.title,main h1,main h2,.title");
-  return clean(el?el.textContent:document.title)||"THE GAUR CRM Report";
+  return clean(el?el.textContent:document.title)||"THE IMMIGRATION MANAGEMENT SYSTEM Report";
 }
 function scope(){
   const text=(document.body&&document.body.innerText)||"";
-  const sc=/Smart Choice|SCIC/i.test(text), ww=/White Wave|WWIC/i.test(text);
-  if(sc&&!ww)return "Smart Choice";
-  if(ww&&!sc)return "White Wave";
+  const sc=/ABC|SCIC/i.test(text), ww=/XYZ|WWIC/i.test(text);
+  if(sc&&!ww)return "ABC";
+  if(ww&&!sc)return "XYZ";
   return "Both Companies";
 }
 function toast(msg){
@@ -55,7 +55,7 @@ function tables(){
 function shareWhatsApp(ev){
   if(ev){ev.preventDefault();ev.stopImmediatePropagation();}
   toast("Opening WhatsApp…");
-  let msg="THE GAUR CRM\n"+title()+"\nScope: "+scope();
+  let msg="THE IMMIGRATION MANAGEMENT SYSTEM\n"+title()+"\nScope: "+scope();
   const m=metrics().slice(0,8);
   if(m.length){
     msg+="\n\n";

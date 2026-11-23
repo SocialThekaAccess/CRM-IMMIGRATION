@@ -1,4 +1,4 @@
-"""
+﻿"""
 Bank Manager Extension Module
 - Bank Account Delete with OTP verification (email to admin Gmail)
 - Expense Sheet (/finance/expenses)
@@ -40,10 +40,10 @@ def _send_delete_otp_email(bank, otp, actor):
     if not sender or not password:
         raise RuntimeError("Gmail OTP not configured.")
     msg = EmailMessage()
-    msg["Subject"] = f"THE GAUR • Bank Account Delete OTP • {bank['bank_name']}"
+    msg["Subject"] = f"IMS • Bank Account Delete OTP • {bank['bank_name']}"
     msg["From"] = sender
     msg["To"] = sender
-    msg.set_content(f"""THE GAUR SECURITY ALERT
+    msg.set_content(f"""IMS SECURITY ALERT
 
 A bank account DELETE request has been initiated.
 
@@ -61,7 +61,7 @@ ONE TIME PASSWORD: {otp}
 OTP expires in 10 minutes. Only approve if you authorised this deletion.
 If this was NOT you, change your portal password immediately.
 
-THE GAUR • Bank Security Center
+IMS • Bank Security Center
 """)
     context = ssl.create_default_context()
     with smtplib.SMTP("smtp.gmail.com", 587, timeout=20) as smtp:
@@ -274,8 +274,8 @@ _EXPENSE_TMPL = r"""{% extends "base.html" %}{% block content %}
       {% if u['role']=='MD' %}
       <div><label>Company</label>
         <select name="company_code">
-          <option value="SCIC">Smart Choice</option>
-          <option value="WWIC">White Wave</option>
+          <option value="SCIC">ABC</option>
+          <option value="WWIC">XYZ</option>
         </select>
       </div>
       {% endif %}

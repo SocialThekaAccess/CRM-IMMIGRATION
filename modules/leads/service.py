@@ -1,6 +1,6 @@
-from legacy_core import db
+﻿from legacy_core import db
 
-COMPANY_NAMES={"SCIC":"Smart Choice","WWIC":"White Wave"}
+COMPANY_NAMES={"SCIC":"ABC","WWIC":"XYZ"}
 
 def scoped_company(user, requested=""):
     requested=(requested or "").strip().upper()
