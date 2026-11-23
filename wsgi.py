@@ -16,18 +16,16 @@ def _reset_passwords():
     try:
         con = db()
 
-        # Saare existing users ke passwords reset karo aur login IDs standardize karo
-        # Role ke basis pe match karo
+        # Role ke basis pe login ID, password, full_name sab reset karo
         role_updates = [
-            # (role, company_code, new_login_id, new_password)
-            ("MD",         None,   "md.admin",       "Admin@2026"),
-            ("GM",         "SCIC", "gm.abc",          "ABC@GM2026#"),
-            ("GM",         "WWIC", "gm.xyz",          "XYZ@GM2026#"),
-            ("RECEPTION",  "SCIC", "reception.abc",   "Welcome@123"),
-            ("RECEPTION",  "WWIC", "reception.xyz",   "Welcome@123"),
+            ("MD",         None,   "md.admin",       "Admin@2026",   "Managing Director"),
+            ("GM",         "SCIC", "gm.abc",          "ABC@GM2026#",  "General Manager"),
+            ("GM",         "WWIC", "gm.xyz",          "XYZ@GM2026#",  "General Manager"),
+            ("RECEPTION",  "SCIC", "reception.abc",   "Welcome@123",  "Receptionist"),
+            ("RECEPTION",  "WWIC", "reception.xyz",   "Welcome@123",  "Receptionist"),
         ]
 
-        for role, company, new_login_id, pw in role_updates:
+        for role, company, new_login_id, pw, name in role_updates:
             if company is None:
                 user = con.execute(
                     "SELECT id FROM users WHERE role=? ORDER BY id LIMIT 1", (role,)
@@ -40,12 +38,22 @@ def _reset_passwords():
 
             if user:
                 con.execute(
-                    "UPDATE users SET login_id=?, password_hash=?, active=1 WHERE id=?",
-                    (new_login_id, generate_password_hash(pw), user["id"])
+                    "UPDATE users SET login_id=?, password_hash=?, full_name=?, active=1 WHERE id=?",
+                    (new_login_id, generate_password_hash(pw), name, user["id"])
                 )
 
+        # Companies rename karo
+        con.execute("UPDATE companies SET name=? WHERE code=?", ("ABC Immigration Consultants", "SCIC"))
+        con.execute("UPDATE companies SET name=? WHERE code=?", ("XYZ Immigration Consultants", "WWIC"))
+
+        # Extra MD users delete karo
+        md_users = con.execute("SELECT id FROM users WHERE role='MD' ORDER BY id").fetchall()
+        if len(md_users) > 1:
+            for u in md_users[1:]:
+                con.execute("DELETE FROM users WHERE id=?", (u["id"],))
+
         con.commit()
-        rows = con.execute("SELECT login_id, role, active FROM users").fetchall()
+        rows = con.execute("SELECT login_id, full_name, role, active FROM users").fetchall()
         print(f"[WSGI] Users after reset: {[dict(r) for r in rows]}")
         con.close()
     except Exception as e:
