@@ -15,24 +15,38 @@ init_db()
 def _reset_passwords():
     try:
         con = db()
-        resets = [
-            ("md.admin",       "Admin@2026"),
-            ("ms.sandeep",     "Admin@2026"),
-            ("gm.smartchoice", "ABC@GM2026#"),
-            ("gm.whitewave",   "XYZ@GM2026#"),
-            ("reception.scic", "Welcome@123"),
-            ("reception.wwic", "Welcome@123"),
-            ("manjul.nagar",   "Admin@2026"),
+
+        # Saare existing users ke passwords reset karo aur login IDs standardize karo
+        # Role ke basis pe match karo
+        role_updates = [
+            # (role, company_code, new_login_id, new_password)
+            ("MD",         None,   "md.admin",       "Admin@2026"),
+            ("GM",         "SCIC", "gm.abc",          "ABC@GM2026#"),
+            ("GM",         "WWIC", "gm.xyz",          "XYZ@GM2026#"),
+            ("RECEPTION",  "SCIC", "reception.abc",   "Welcome@123"),
+            ("RECEPTION",  "WWIC", "reception.xyz",   "Welcome@123"),
         ]
-        for login_id, pw in resets:
-            con.execute(
-                "UPDATE users SET password_hash=? WHERE lower(login_id)=lower(?)",
-                (generate_password_hash(pw), login_id)
-            )
+
+        for role, company, new_login_id, pw in role_updates:
+            if company is None:
+                user = con.execute(
+                    "SELECT id FROM users WHERE role=? ORDER BY id LIMIT 1", (role,)
+                ).fetchone()
+            else:
+                user = con.execute(
+                    "SELECT id FROM users WHERE role=? AND company_code=? ORDER BY id LIMIT 1",
+                    (role, company)
+                ).fetchone()
+
+            if user:
+                con.execute(
+                    "UPDATE users SET login_id=?, password_hash=?, active=1 WHERE id=?",
+                    (new_login_id, generate_password_hash(pw), user["id"])
+                )
+
         con.commit()
-        # Debug log
-        rows = con.execute("SELECT login_id, active FROM users").fetchall()
-        print(f"[WSGI] Users in DB: {[dict(r) for r in rows]}")
+        rows = con.execute("SELECT login_id, role, active FROM users").fetchall()
+        print(f"[WSGI] Users after reset: {[dict(r) for r in rows]}")
         con.close()
     except Exception as e:
         print(f"Password reset warning: {e}")
